@@ -23,6 +23,18 @@ function updateButton(){
 	toggle.textContent = icon;
 	console.log("Update the button");
 }
+
+function skip(){
+	// look at data-skip in dom
+	console.log(this.dataset.skip);
+	video.currentTime += parseFloat(this.dataset.skip)
+}
+
+function handleRangeUpdate(){
+	video[this.name] = this.value; 
+	// console.log(this.name)
+	// console.log(this.value);
+}
 // 3. Hook up the event listeners
 
 video.addEventListener('click', togglePlay);
@@ -30,3 +42,9 @@ toggle.addEventListener('click', togglePlay);
 
 video.addEventListener('play', updateButton); 
 video.addEventListener('pause', updateButton); 
+
+// all skip buttons - runs skip function at end
+skipButtons.forEach(button => button.addEventListener('click', skip));
+
+ranges.forEach(range => range.addEventListener('change', handleRangeUpdate))
+ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
